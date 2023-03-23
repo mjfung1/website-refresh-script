@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script To Keep Pages Active</title>
+    <style>
+        .hidden {
+            display: hidden;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        Keep Them Pages Active
+    </h1>
+    <button class="execute">Execute Process</button>
+    <button class="kill">Kill Process</button>
+    <ul class="list">
+    </ul>
+    <div>
+        <a title="Gee-mas frontend" href="https://recipe-app-frontend-7gwc.onrender.com/" target="_blank" rel="noopener noreferrer"></a>
+        <a title="Gee-mas backend" href="https://recipe-app-vv5z.onrender.com/recipes" target="_blank" rel="noopener noreferrer"></a>
+        <a title="Dad-Jokes" href="https://dad-jokes-65zc.onrender.com/dad-jokes" target="_blank" rel="noopener noreferrer"></a>
+        <a title="TypingMonkey" href="https://typingmonkey.onrender.com/game" target="_blank" rel="noopener noreferrer"></a>
+    </div>
+    <script>
+        const execute = document.querySelector(".execute");
+        const kill = document.querySelector(".kill");
+        const aTags = document.querySelectorAll("a");
+        const ulTag = document.querySelector(".list");
+
+        let myInt;
+
+        function fetchAndDisplay() {
+
+            const convertedTimeThree = new Date().toLocaleString('en-us', {
+                day: '2-digit',
+                weekday: 'long',
+                hour: '2-digit',
+                minute: '2-digit',
+            })
+            const h1 = document.createElement("h1");
+            h1.innerHTML = convertedTimeThree;
+            ulTag.appendChild(h1);
+
+            aTags.forEach(async(aTag) => {
+
+
+
+                const li = document.createElement("LI");
+                const pTag = document.createElement("p");
+
+                pTag.innerText = "Fetching : " + aTag.title;
+                li.appendChild(pTag);
+                
+                const frame = document.createElement("iframe");
+                frame.width = "100px";
+                frame.height = "60px";
+                frame.src = aTag.href;
+                // frame.style.display = "none";
+                
+                li.appendChild(frame);
+                ulTag.appendChild(li);
+
+
+            });
+            const hr = document.createElement("hr");
+            ulTag.appendChild(hr);
+        };
+
+        execute.addEventListener("click", () => {
+            fetchAndDisplay();
+
+            myInt = setInterval(() => {
+                fetchAndDisplay();
+                // ~15 mins in millsecs
+                // 890000
+            }, 890000);
+        });
+
+        kill.addEventListener("click", () => {
+            clearInterval(myInt);
+        });
+
+
+
+    </script>
+</body>
+</html>
+
