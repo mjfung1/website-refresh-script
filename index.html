@@ -16,7 +16,7 @@
         Keep Them Pages Active
     </h1>
     <button class="execute">Execute Process</button>
-    <input type="number" placeholder="Refresh Time(mins)">
+    <input type="number" placeholder="Time(15min default)" min="0">
     <button class="kill">Kill Process</button>
     <ul class="list">
     </ul>
@@ -74,12 +74,13 @@
         execute.addEventListener("click", () => {
             fetchAndDisplay();
             const time = document.querySelector("input");
-            console.log(time.value);
+            const amount = time.value == "" ? 15 : time.value;
+            if (amount < 0) amount = 15;
+            
             myInt = setInterval(() => {
                 fetchAndDisplay();
-                // ~15 mins in millsecs
-                // 890000
-            }, 60000 * time.value);
+               
+            }, 60000 * amount);
         });
 
         kill.addEventListener("click", () => {
